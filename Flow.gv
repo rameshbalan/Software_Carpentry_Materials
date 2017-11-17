@@ -1,0 +1,67 @@
+digraph G {
+    graph [fontname=Helvetica, fontsize=24];
+    node [shape="box", fontname=Monaco, fontsize=18];   
+    compound=true;
+    ranksep = 1;
+    a -> b;
+    subgraph cluster0 {
+        node [style=filled];
+        {   b -> b1;
+            b -> b2;
+            b -> b3;
+            b1 -> be1;
+            b2 -> be2;
+            b3 -> be3; }
+        label = "Subsetting";
+        labeljust = "l";
+        color=black; 
+        }
+    subgraph cluster1 {
+        node [style=filled];
+        {   c -> c1;
+            c -> c2;
+             }
+        label = "Importing data";
+        labeljust = "l";
+        color=black; 
+        }    
+    subgraph cluster2 {
+        node [style=filled];
+        {   d -> d1;
+             }
+        label = "Applying Subsetting\n to Gapminder Dataset";
+        labeljust = "l";
+        color=black; 
+        }
+    subgraph cluster3 {
+        node [style=filled];
+        {   e -> e1;
+            e1 -> e2;
+            e2 -> e3;
+             }
+        label = "Simple Script\n to plot\n LifeExpectancy Over Years\n in Canada ";
+        labeljust = "l";
+        color=black; 
+        }          
+    be2 -> c [lhead = cluster1, ltail=cluster0, minlen = 2.5];
+    c1 -> d [lhead = cluster2, ltail = cluster1, minlen = 2.5];
+    d1 -> e [lhead = cluster3, ltail = cluster2, minlen = 2.5]
+    a [label = "Introduction"];
+    b [label = "Types of Subsetting"];
+    b1 [label = "Position Index"];
+    b2 [label = "Name"];
+    b3 [label = "Logical Vectors"];
+    be1 [label = "\l 1. v<-c(11:20)\l 2. v\l 3. v[2]\l 4. v[c(3:6)]\l 5. v[-c(3:5)]\l 6. myOrder\l 7. myOrder[2]\l 8. myOrder_df[2]\l 9. myOrder_df[,2]\l 10. myOrder_df[2,]"];
+    be2 [label = "1. myOrder_df$menuType"];
+    be3 [label = "1. Copy Paste Logical Operators\l 2. v<-c(1,5,3,4,5)\l 3.v1<-v[v==5]\l 4.v1\l 5.df1<-myOrder_df[myOrder_df$menuType==solid, ]\l 6.df1\l 7.df2<-myOrder_df[myOrder_df$menuCost>3, ]\l 8.df2\l"];
+    c [label = "Import Gapminder Dataset"];
+    c1 [label = "read.table"];
+    c2 [label = "read.csv"];
+    d [label = "\l 1.Copy Paste Tasks\l 2. Give them Answers\n"];
+    d1 [label = "Answers\l 1.str()\l 2.typeof()\l 3.myData[ ,c(3,5)]\l 4.unique(myData[,1])\l 5. myData[myData$country==Sweden,]\l 6. myData[myData$lifeExp<70, ]\l 7. myData$PopM<-myData$pop/10^6\l"] ;
+    e [label = "\l 1. What is a script?\l 2. Where to write them?\l"];
+    e1 [label= "\l 1. myDataFull<-read.table(gapminder.txt, header = TRUE)\l 2. Canada<-myDataFull[myDataFull$country==Canada,]\l 3. plot(Canada$year, Canada$lifeExp, col=blue, type=l)\l 4.source(PlotLifeExp.R)\l "];
+    e2 [label ="\l To save the file, add\l 1. png(Canada.png)\l 2.plot(Canada$year, Canada$lifeExp, col=blue, type=l)\l 3. dev.off()\l"];
+    e3 [label = "Task\l Write a script to calculate mean\n gdpPerCap for African and European countries.\nTry to make a barplot\n to display your results\n HINT: ?mean ?barplot"];
+    e3 -> Summary;
+}
